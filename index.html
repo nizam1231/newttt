@@ -3,22 +3,113 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MetaMask Connection Test</title>
+  <title>Login with MetaMask</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(135deg, #1e3c72, #2a5298);
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      width: 350px;
+    }
+
+    .container h1 {
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+
+    .container p {
+      margin-top: 15px;
+      font-size: 16px;
+    }
+
+    button {
+      padding: 15px 20px;
+      font-size: 16px;
+      font-weight: bold;
+      background: #ff8c00;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      background: #ffa733;
+    }
+
+    #message, #walletInfo {
+      margin-top: 20px;
+      font-size: 18px;
+      color: #ffdd57;
+    }
+
+    footer {
+      margin-top: 30px;
+      font-size: 12px;
+      color: #dcdcdc;
+    }
+  </style>
 </head>
 <body>
-  <button id="connectButton">Connect Wallet</button>
+  <div class="container">
+    <h1>Connect with MetaMask</h1>
+    <button id="loginButton">Connect Wallet</button>
+    <div id="walletInfo"></div>
+    <p id="message"></p>
+  </div>
+  <footer>
+    Powered by Web3 & MetaMask
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/ethers/dist/ethers.min.js"></script>
   <script>
-    document.getElementById("connectButton").addEventListener("click", async () => {
+    document.getElementById("loginButton").addEventListener("click", async () => {
+      const messageElement = document.getElementById("message");
+      const walletInfoElement = document.getElementById("walletInfo");
+
+      // تحقق من وجود MetaMask
       if (typeof window.ethereum !== "undefined") {
-        alert("MetaMask detected!");
         try {
+          // طلب الوصول إلى المحفظة
           const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
-          alert(Connected Account: ${accounts[0]});
+          const account = accounts[0];
+          
+          // إعداد مزود من Ethers.js
+          const provider = new ethers.providers.Web3Provider(window.ethereum);
+          const balance = await provider.getBalance(account);
+          const ethBalance = ethers.utils.formatEther(balance);
+
+          // عرض العنوان والرصيد
+          walletInfoElement.innerHTML = 
+            <p><strong>Address:</strong> ${account}</p>
+            <p><strong>Balance:</strong> ${ethBalance} ETH</p>
+          ;
+          messageElement.textContent = "Wallet connected successfully!";
         } catch (error) {
-          alert("Error: " + error.message);
+          console.error(error);
+          messageElement.textContent = "Error connecting to MetaMask!";
         }
       } else {
-        alert("MetaMask is not installed.");
+        messageElement.textContent = "MetaMask is not installed. Please install it to use this feature.";
       }
     });
   </script>
