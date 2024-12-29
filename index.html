@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MetaMask Connection Test</title>
+</head>
+<body>
+  <button id="connectButton">Connect Wallet</button>
+  <script>
+    document.getElementById("connectButton").addEventListener("click", async () => {
+      if (typeof window.ethereum !== "undefined") {
+        alert("MetaMask detected!");
+        try {
+          const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
+          alert(Connected Account: ${accounts[0]});
+        } catch (error) {
+          alert("Error: " + error.message);
+        }
+      } else {
+        alert("MetaMask is not installed.");
+      }
+    });
+  </script>
+</body>
+</html>
