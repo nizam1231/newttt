@@ -1,117 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login with MetaMask</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Arial', sans-serif;
-      background: linear-gradient(135deg, #1e3c72, #2a5298);
-      color: white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
-
-    .container {
-      background: rgba(255, 255, 255, 0.1);
-      padding: 30px;
-      border-radius: 15px;
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-      text-align: center;
-      width: 350px;
-    }
-
-    .container h1 {
-      font-size: 28px;
-      margin-bottom: 20px;
-    }
-
-    .container p {
-      margin-top: 15px;
-      font-size: 16px;
-    }
-
-    button {
-      padding: 15px 20px;
-      font-size: 16px;
-      font-weight: bold;
-      background: #ff8c00;
-      color: white;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    button:hover {
-      background: #ffa733;
-    }
-
-    #message, #walletInfo {
-      margin-top: 20px;
-      font-size: 18px;
-      color: #ffdd57;
-    }
-
-    footer {
-      margin-top: 30px;
-      font-size: 12px;
-      color: #dcdcdc;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connect to MetaMask</title>
 </head>
 <body>
-  <div class="container">
-    <h1>Connect with MetaMask</h1>
-    <button id="loginButton">Connect Wallet</button>
-    <div id="walletInfo"></div>
-    <p id="message"></p>
-  </div>
-  <footer>
-    Powered by Web3 & MetaMask
-  </footer>
+    <h1>Connect to MetaMask</h1>
+    <button id="connectButton">Connect Wallet</button>
+    <p id="walletAddress"></p>
+    <p id="statusMessage"></p>
 
-  <script src="https://cdn.jsdelivr.net/npm/ethers/dist/ethers.min.js"></script>
-  <script>
-    document.getElementById("loginButton").addEventListener("click", async () => {
-      const messageElement = document.getElementById("message");
-      const walletInfoElement = document.getElementById("walletInfo");
+    <script>
+        const connectButton = document.getElementById("connectButton");
+        const walletAddress = document.getElementById("walletAddress");
+        const statusMessage = document.getElementById("statusMessage");
 
-      // تحقق من وجود MetaMask
-      if (typeof window.ethereum !== "undefined") {
-        try {
-          // طلب الوصول إلى المحفظة
-          const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
-          const account = accounts[0];
-          
-          // إعداد مزود من Ethers.js
-          const provider = new ethers.providers.Web3Provider(window.ethereum);
-          const balance = await provider.getBalance(account);
-          const ethBalance = ethers.utils.formatEther(balance);
-
-          // عرض العنوان والرصيد
-          walletInfoElement.innerHTML = 
-            <p><strong>Address:</strong> ${account}</p>
-            <p><strong>Balance:</strong> ${ethBalance} ETH</p>
-          ;
-          messageElement.textContent = "Wallet connected successfully!";
-        } catch (error) {
-          console.error(error);
-          messageElement.textContent = "Error connecting to MetaMask!";
-        }
-      } else {
-        messageElement.textContent = "MetaMask is not installed. Please install it to use this feature.";
-      }
-    });
-  </script>
+        connectButton.addEventListener("click", async () => {
+            if (typeof window.ethereum !== 'undefined') {
+                try {
+                    // Request account access
+                    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                    const account = accounts[0]; // First account
+                    walletAddress.textContent = Connected Wallet Address: ${account};
+                    statusMessage.textContent = "Connected successfully!";
+                } catch (error) {
+                    walletAddress.textContent = "";
+                    statusMessage.textContent = "Connection failed. Please try again.";
+                }
+            } else {
+                statusMessage.textContent = "MetaMask is not installed. Please install MetaMask and try again.";
+            }
+        });
+    </script>
 </body>
 </html>
