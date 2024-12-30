@@ -12,6 +12,13 @@
     <p id="statusMessage"></p>
 
     <script>
+        // Check if MetaMask is installed
+        if (typeof window.ethereum === 'undefined') {
+            alert("MetaMask is not installed. Please install MetaMask and refresh the page.");
+        } else {
+            console.log("MetaMask detected. Ready to connect.");
+        }
+
         const connectButton = document.getElementById("connectButton");
         const walletAddress = document.getElementById("walletAddress");
         const statusMessage = document.getElementById("statusMessage");
@@ -83,11 +90,12 @@
                         return;
                     }
 
-                    // Request account access
+// Request account access
                     const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
                     const account = accounts[0]; // First account
                     walletAddress.textContent = Connected Wallet Address: ${account};
-// Sign a message for confirmation
+
+                    // Sign a message for confirmation
                     const signed = await signMessage(account);
                     if (!signed) {
                         walletAddress.textContent = "";
