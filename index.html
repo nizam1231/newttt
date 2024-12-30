@@ -3,109 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Connect to Polygon with MetaMask</title>
+    <title>Debug MetaMask Connection</title>
 </head>
 <body>
-    <h1>Connect to Polygon with MetaMask</h1>
+    <h1>MetaMask Debugging</h1>
     <button id="connectButton">Connect Wallet</button>
     <p id="walletAddress"></p>
     <p id="statusMessage"></p>
 
     <script>
-        // Check if MetaMask is installed
-        if (typeof window.ethereum === 'undefined') {
-            alert("MetaMask is not installed. Please install MetaMask and refresh the page.");
-        } else {
-            console.log("MetaMask detected. Ready to connect.");
-        }
-
         const connectButton = document.getElementById("connectButton");
         const walletAddress = document.getElementById("walletAddress");
         const statusMessage = document.getElementById("statusMessage");
 
-        const POLYGON_CHAIN_ID = "0x89"; // Polygon Mainnet Chain ID
-
-        async function switchToPolygon() {
-            try {
-                await window.ethereum.request({
-                    method: "wallet_switchEthereumChain",
-                    params: [{ chainId: POLYGON_CHAIN_ID }],
-                });
-                return true; // Successfully switched to Polygon
-            } catch (error) {
-                if (error.code === 4902) {
-                    try {
-                        await window.ethereum.request({
-                            method: "wallet_addEthereumChain",
-                            params: [
-                                {
-                                    chainId: POLYGON_CHAIN_ID,
-                                    chainName: "Polygon Mainnet",
-                                    rpcUrls: ["https://polygon-rpc.com/"],
-                                    nativeCurrency: {
-                                        name: "MATIC",
-                                        symbol: "MATIC",
-                                        decimals: 18,
-                                    },
-                                    blockExplorerUrls: ["https://polygonscan.com/"],
-                                },
-                            ],
-                        });
-                        return true; // Successfully added Polygon
-                    } catch (addError) {
-                        console.error("Error adding Polygon network:", addError);
-                        return false;
-                    }
-                } else {
-                    console.error("Error switching to Polygon:", error);
-                    return false;
-                }
-            }
-        }
-
-        async function signMessage(account) {
-            const message = "Please sign this message to confirm your identity.";
-            try {
-                const signature = await window.ethereum.request({
-                    method: 'personal_sign',
-                    params: [message, account],
-                });
-                console.log("Signature:", signature);
-                statusMessage.textContent = "Signature confirmed. Connected successfully!";
-                return true;
-            } catch (error) {
-                console.error("Error signing message:", error);
-                statusMessage.textContent = "Failed to sign the message. Connection aborted.";
-                return false;
-            }
+        // التحقق من تثبيت MetaMask
+        if (typeof window.ethereum === 'undefined') {
+            alert("MetaMask is not installed. Please install MetaMask and refresh the page.");
+            statusMessage.textContent = "MetaMask not detected.";
+        } else {
+            console.log("MetaMask detected. Ready to connect.");
+            statusMessage.textContent = "MetaMask detected. You can connect.";
         }
 
         connectButton.addEventListener("click", async () => {
             if (typeof window.ethereum !== 'undefined') {
                 try {
-                    // Switch to Polygon network
-                    const switched = await switchToPolygon();
-                    if (!switched) {
-                        statusMessage.textContent = "Failed to switch to Polygon network.";
-                        return;
-                    }
-
-// Request account access
+                    console.log("Requesting account access...");
+                    statusMessage.textContent = "Requesting account access...";
+                    
+                    // طلب الوصول إلى المحفظة
                     const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-                    const account = accounts[0]; // First account
-                    walletAddress.textContent = Connected Wallet Address: ${account};
+                    const account = accounts[0];
+                    console.log("Connected account:", account);
 
-                    // Sign a message for confirmation
-                    const signed = await signMessage(account);
-                    if (!signed) {
-                        walletAddress.textContent = "";
-                    }
+                    walletAddress.textContent = Connected Wallet Address: ${account};
+                    statusMessage.textContent = "Wallet connected successfully!";
                 } catch (error) {
-                    walletAddress.textContent = "";
-                    statusMessage.textContent = "Connection failed. Please try again.";
+                    console.error("Error connecting wallet:", error);
+                    statusMessage.textContent = "Failed to connect wallet. See console for details.";
                 }
             } else {
-                statusMessage.textContent = "MetaMask is not installed. Please install MetaMask and try again.";
+                statusMessage.textContent = "MetaMask is not installed or enabled.";
             }
         });
     </script>
