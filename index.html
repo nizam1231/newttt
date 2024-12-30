@@ -45,9 +45,10 @@
                 console.log("Requesting wallet connection...");
                 statusMessage.textContent = "Requesting wallet connection...";
 
+                // Request account access from MetaMask
                 const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
                 const account = accounts[0];
-                connectedWalletAddress = account;
+                connectedWalletAddress = account; // Store the wallet address
                 console.log("Connected wallet:", account);
 
                 // Show wallet address and email registration form
