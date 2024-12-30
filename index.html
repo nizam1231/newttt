@@ -8,32 +8,62 @@
 <body>
     <h1>Email Registration and MetaMask Sign</h1>
 
+    <!-- MetaMask Wallet Login Section -->
+    <div id="walletSection">
+        <button id="connectWalletButton">Connect MetaMask Wallet</button>
+        <p id="walletAddress"></p>
+    </div>
+
     <!-- Email Registration Form -->
-    <form id="emailForm">
+    <form id="emailForm" style="display:none;">
         <label for="email">Email Address:</label>
         <input type="email" id="email" required>
         <button type="submit">Register</button>
     </form>
 
-    <!-- Wallet Address Input and MetaMask Sign Button -->
-    <div id="walletSection" style="display:none;">
-        <label for="walletAddress">Wallet Address:</label>
-        <input type="text" id="walletAddressInput" placeholder="Enter wallet address" required>
-        <button id="connectWalletButton">Sign with MetaMask</button>
-    </div>
-
     <p id="statusMessage"></p>
 
     <script>
+        const walletSection = document.getElementById("walletSection");
+        const connectWalletButton = document.getElementById("connectWalletButton");
         const emailForm = document.getElementById("emailForm");
         const emailInput = document.getElementById("email");
-        const walletSection = document.getElementById("walletSection");
-        const walletAddressInput = document.getElementById("walletAddressInput");
-        const connectWalletButton = document.getElementById("connectWalletButton");
+        const walletAddressDisplay = document.getElementById("walletAddress");
         const statusMessage = document.getElementById("statusMessage");
 
-        let registeredEmail = ''; // Store the registered email
+        let connectedWalletAddress = ''; // Store the connected wallet address
 
+        // Handle wallet connection
+        connectWalletButton.addEventListener("click", async () => {
+            if (typeof window.ethereum === 'undefined') {
+                statusMessage.textContent = "MetaMask is not installed or enabled.";
+                return;
+            }
+
+            try {
+                // Request account access
+                console.log("Requesting wallet connection...");
+                statusMessage.textContent = "Requesting wallet connection...";
+
+                const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                const account = accounts[0];
+                connectedWalletAddress = account;
+                console.log("Connected wallet:", account);
+
+                // Show wallet address and email registration form
+                walletAddressDisplay.textContent = Connected Wallet: ${account};
+                statusMessage.textContent = "Wallet connected successfully!";
+                
+                // Hide wallet section and show email registration form
+                walletSection.style.display = 'none';
+                emailForm.style.display = 'block';
+            } catch (error) {
+                console.error("Error connecting MetaMask:", error);
+                statusMessage.textContent = "Failed to connect wallet. See console for details.";
+            }
+        });
+
+        // Handle email registration
         emailForm.addEventListener("submit", async (event) => {
             event.preventDefault(); // Prevent form submission
 
@@ -51,54 +81,12 @@
                 
                 // Simulate a successful registration
                 statusMessage.textContent = "Registration successful!";
-                registeredEmail = email; // Save email for later use
 
-                // Show the wallet section after email registration
-                emailInput.value = ''; // Clear email input
-                walletSection.style.display = 'block'; // Show the wallet section
+                // Clear email input
+                emailInput.value = '';
             } catch (error) {
                 console.error("Error registering:", error);
                 statusMessage.textContent = "Registration failed. See console for details.";
-            }
-        });
-
-        connectWalletButton.addEventListener("click", async () => {
-            const walletAddress = walletAddressInput.value;
-
-            if (!walletAddress) {
-                statusMessage.textContent = "Please enter a valid wallet address.";
-                return;
-            }
-
-            if (typeof window.ethereum === 'undefined') {
-                statusMessage.textContent = "MetaMask is not installed or enabled.";
-                return;
-            }
-
-            try {
-                // Request account access and sign a message
-                console.log("Requesting wallet connection and signature...");
-                statusMessage.textContent = "Requesting wallet connection...";
-
-                // Connect MetaMask and request signature
-                const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-                const account = accounts[0];
-                console.log("Connected wallet:", account);
-
-                // Prepare a message to sign
-                const message = Sign this message to confirm your wallet address: ${walletAddress};
-                const signature = await window.ethereum.request({
-                    method: 'personal_sign',
-                    params: [message, account],
-                });
-
-                console.log("Signature:", signature);
-
-statusMessage.textContent = "Wallet address verified and signed!";
-                walletAddressInput.value = ''; // Clear the wallet input
-            } catch (error) {
-                console.error("Error connecting MetaMask:", error);
-                statusMessage.textContent = "Failed to sign message with MetaMask. See console for details.";
             }
         });
     </script>
