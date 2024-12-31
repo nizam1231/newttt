@@ -3,93 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Email Registration with MetaMask Sign</title>
+    <title>Add Token to MetaMask</title>
 </head>
 <body>
-    <h1>Email Registration and MetaMask Sign</h1>
-
-    <!-- MetaMask Wallet Login Section -->
-    <div id="walletSection">
-        <button id="connectWalletButton">Connect MetaMask Wallet</button>
-        <p id="walletAddress"></p>
+    <div style="text-align: center; margin-top: 50px;">
+        <button onclick="addTokenFunction()" class="add">Add Token To MetaMask</button>
     </div>
 
-    <!-- Email Registration Form -->
-    <form id="emailForm" style="display:none;">
-        <label for="email">Email Address:</label>
-        <input type="email" id="email" required>
-        <button type="submit">Register</button>
-    </form>
-
-    <p id="statusMessage"></p>
-
     <script>
-        const walletSection = document.getElementById("walletSection");
-        const connectWalletButton = document.getElementById("connectWalletButton");
-        const emailForm = document.getElementById("emailForm");
-        const emailInput = document.getElementById("email");
-        const walletAddressDisplay = document.getElementById("walletAddress");
-        const statusMessage = document.getElementById("statusMessage");
+        const tokenAddress = '0xc00971105e61274c8a5cd5a88fe7e037d935b513';
+        const tokenSymbol = 'HelloCoin';
+        const tokenDecimals = 18;
+        const tokenImage = 'https://assets.codepen.io/4625073/1.jpeg';
 
-        let connectedWalletAddress = ''; // Store the connected wallet address
-
-        // Handle wallet connection
-        connectWalletButton.addEventListener("click", async () => {
+        async function addTokenFunction() {
             if (typeof window.ethereum === 'undefined') {
-                statusMessage.textContent = "MetaMask is not installed or enabled.";
+                alert('MetaMask is not installed. Please install it to use this feature.');
                 return;
             }
 
             try {
-                // Request account access
-                console.log("Requesting wallet connection...");
-                statusMessage.textContent = "Requesting wallet connection...";
+                const wasAdded = await ethereum.request({
+                    method: 'wallet_watchAsset',
+                    params: {
+                        type: 'ERC20',
+                        options: {
+                            address: tokenAddress,
+                            symbol: tokenSymbol,
+                            decimals: tokenDecimals,
+                            image: tokenImage,
+                        },
+                    },
+                });
 
-                // Request account access from MetaMask
-                const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-                const account = accounts[0];
-                connectedWalletAddress = account; // Store the wallet address
-                console.log("Connected wallet:", account);
-
-                // Show wallet address and email registration form
-                walletAddressDisplay.textContent = Connected Wallet: ${account};
-                statusMessage.textContent = "Wallet connected successfully!";
-                
-                // Hide wallet section and show email registration form
-                walletSection.style.display = 'none';
-                emailForm.style.display = 'block';
+                if (wasAdded) {
+                    alert('Token added successfully!');
+                } else {
+                    alert('Token addition declined.');
+                }
             } catch (error) {
-                console.error("Error connecting MetaMask:", error);
-                statusMessage.textContent = "Failed to connect wallet. See console for details.";
+                console.error('Error adding token:', error);
+                alert('An error occurred. Check the console for details.');
             }
-        });
-
-        // Handle email registration
-        emailForm.addEventListener("submit", async (event) => {
-            event.preventDefault(); // Prevent form submission
-
-            const email = emailInput.value;
-            if (!email) {
-                statusMessage.textContent = "Please enter a valid email address.";
-                return;
-            }
-
-            // Simulate email registration process
-            statusMessage.textContent = "Registering...";
-
-            try {
-                console.log("Registering user with email:", email);
-                
-                // Simulate a successful registration
-                statusMessage.textContent = "Registration successful!";
-
-                // Clear email input
-                emailInput.value = '';
-            } catch (error) {
-                console.error("Error registering:", error);
-                statusMessage.textContent = "Registration failed. See console for details.";
-            }
-        });
+        }
     </script>
 </body>
 </html>
