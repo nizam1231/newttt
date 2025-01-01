@@ -3,49 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Token to MetaMask</title>
+    <title>TLB</title>
+    <link rel="stylesheet" href="style_index.css">
 </head>
+
 <body>
-    <div style="text-align: center; margin-top: 50px;">
-        <button onclick="addTokenFunction()" class="add">Add Token To MetaMask</button>
-    </div>
+<header>
+    <nav style="float: right;">
+        <input type="checkbox" id="menu-toggle">
+        <label for="menu-toggle" class="menu-icon"></label>
+        <ul class="menu">
+            <li><a href="index.html">HOME</a></li>
+            <li><a href="Business Showcase Zone.html" href="#about">Business Showcase Zone</a></li>
+            <li><a href="form.html">create zone</a></li>
+            <li><a href="contact">اتصل بنا</a></li>
+        </ul>
+    </nav>
+</header>
 
-    <script>
-        const tokenAddress = '0xc00971105e61274c8a5cd5a88fe7e037d935b513';
-        const tokenSymbol = 'HelloCoin';
-        const tokenDecimals = 18;
-        const tokenImage = 'https://assets.codepen.io/4625073/1.jpeg';
+<h3>TLB PROJECT</h3>
+<hr>
 
-        async function addTokenFunction() {
-            if (typeof window.ethereum === 'undefined') {
-                alert('MetaMask is not installed. Please install it to use this feature.');
-                return;
-            }
+<h1>
+    TLB
+    <small>Project</small>
+</h1>
 
-            try {
-                const wasAdded = await ethereum.request({
-                    method: 'wallet_watchAsset',
-                    params: {
-                        type: 'ERC20',
-                        options: {
-                            address: tokenAddress,
-                            symbol: tokenSymbol,
-                            decimals: tokenDecimals,
-                            image: tokenImage,
-                        },
-                    },
-                });
+<h4>One integrated Project<br>Furniture NFTs Tokens</h4>
+<br>
+<h3>- Here, we will explain to you the project idea,<br> how it started, and what TLB is.</h3>
+<img src="tlb.png" alt="html tutorial" style="width:470px;height:auto; float: right;max-width:100%">
 
-                if (wasAdded) {
-                    alert('Token added successfully!');
-                } else {
-                    alert('Token addition declined.');
-                }
-            } catch (error) {
-                console.error('Error adding token:', error);
-                alert('An error occurred. Check the console for details.');
-            }
-        }
-    </script>
+<!-- الزر لإضافة التوكن -->
+<div style="text-align: center; margin-top: 20px;">
+    <button onclick="addTokenFunction()" class="add">Add Token To MetaMask</button>
+</div>
+
+<!-- سكريبت الوظيفة -->
+<script>
+const tokenAddress = '0xc00971105e61274c8a5cd5a88fe7e037d935b513';
+const tokenSymbol = 'HelloCoin';
+const tokenDecimals = 18;
+const tokenImage = 'https://assets.codepen.io/4625073/1.jpeg';
+
+async function addTokenFunction() {
+
+try {
+  
+  const wasAdded = await ethereum.request({
+    method: 'wallet_watchAsset',
+    params: {
+      type: 'ERC20', 
+      options: {
+        address: tokenAddress, 
+        symbol: tokenSymbol, 
+        decimals: tokenDecimals, 
+        image: tokenImage, 
+      },
+    },
+  });
+
+  if (wasAdded) {
+    console.log('Thanks for your interest!');
+  } else {
+    console.log('HelloWorld Coin has not been added');
+  }
+} catch (error) {
+  console.log(error);
+}
+}
+</script>
+
 </body>
 </html>
