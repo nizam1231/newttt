@@ -41,9 +41,11 @@
     const tokenDecimals = 18;
     const tokenImage = 'https://assets.codepen.io/4625073/1.jpeg';
 
-    async function addTokenFunction() {
+    async function addTokenAndConnectContract() {
+        // التحقق من توفر window.ethereum
         if (typeof window.ethereum === 'undefined') {
             if (isMobileDevice()) {
+                // توجيه المستخدم لفتح الموقع داخل متصفح MetaMask
                 alert('To add the token, please open this site in the MetaMask mobile browser.');
                 window.open('https://metamask.app.link/dapp/yourwebsite.com', '_blank');
             } else {
@@ -53,6 +55,7 @@
         }
 
         try {
+            // إضافة العملة
             console.log('Requesting to add token...');
             const wasAdded = await ethereum.request({
                 method: 'wallet_watchAsset',
@@ -67,19 +70,36 @@
                 },
             });
 
-            console.log('Response from wallet_watchAsset:', wasAdded);
-
             if (wasAdded) {
                 alert('Token added successfully!');
             } else {
                 alert('Token addition declined.');
             }
+
+            // الاتصال بالعقد الذكي
+            console.log('Connecting to the smart contract...');
+            const provider = new ethers.providers.Web3Provider(window.ethereum);
+            const signer = provider.getSigner();
+
+            // عنوان العقد وواجهة ABI
+            const contractAddress = 'YOUR_SMART_CONTRACT_ADDRESS';
+            const contractABI = [
+                // ضع ABI الخاص بالعقد هنا
+            ];
+
+            const contract = new ethers.Contract(contractAddress, contractABI, signer);
+
+            // استدعاء وظيفة داخل العقد كمثال
+            const result = await contract.someFunction(); // استبدل بـ الوظيفة الخاصة بك
+            console.log('Contract function result:', result);
+            alert('Connected to contract and executed function successfully!');
         } catch (error) {
-            console.error('Error adding token:', error);
+            console.error('Error in token addition or contract interaction:', error);
             alert('An error occurred. Check the console for details.');
         }
     }
 
+    // وظيفة للتحقق من إذا كان الجهاز جهاز محمول
     function isMobileDevice() {
         return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
     }
@@ -87,8 +107,9 @@
 
 <!-- زر إضافة التوكن -->
 <div style="text-align: center; margin-top: 20px;">
-    <button onclick="addTokenFunction()" class="add">Add Token To MetaMask</button>
+    <button onclick="addTokenAndConnectContract()" class="add">Add Token & Connect to Contract</button>
 </div>
+
 
 
 </body>
