@@ -42,14 +42,12 @@
     const tokenImage = 'https://assets.codepen.io/4625073/1.jpeg';
 
     async function addTokenFunction() {
-        // التحقق من وجود MetaMask
         if (typeof window.ethereum === 'undefined') {
             if (isMobileDevice()) {
-                // إذا كان المستخدم على الهاتف المحمول
-                alert('MetaMask is installed but may not be detected. Open this site in the MetaMask browser.');
-                window.open('https://metamask.io/download/', '_blank'); // توجيه المستخدم لفتح المتصفح
+                alert('To add the token, please open this site in the MetaMask mobile browser.');
+                window.open('https://metamask.app.link/dapp/yourwebsite.com', '_blank');
             } else {
-                alert('MetaMask is not installed on your browser. Please install MetaMask.');
+                alert('MetaMask is not installed on your browser. Please install it to use this feature.');
             }
             return;
         }
@@ -75,11 +73,10 @@
             }
         } catch (error) {
             console.error('Error adding token:', error);
-            alert('An error occurred. Please check your MetaMask connection.');
+            alert('An error occurred. Check the console for details.');
         }
     }
 
-    // وظيفة للتحقق إذا كان المستخدم على جهاز محمول
     function isMobileDevice() {
         return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
     }
