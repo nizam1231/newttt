@@ -34,45 +34,124 @@
 <h3>- Here, we will explain to you the project idea,<br> how it started, and what TLB is.</h3>
 <img src="tlb.png" alt="html tutorial" style="width:470px;height:auto; float: right;max-width:100%">
 
+    <p class="paragraph-400">
+	
+        The project owner needed an idea to support the private artisan sector, especially in furniture. He desired a qualitative leap that was unlike any before; he wanted distinction and uniqueness. He needed a project that would launch from the city of Tripoli, Lebanon, to the entire world. He wanted to show the world the beauty and creativity of a city whose artisanal works have flourished and continue to flourish with ingenuity to this day.
+    </p>
+    
+    <p class="paragraph-400">
+	
+        Then, he began the preparations...
+        
+        He started working on eight sheets of paper, embarking on the journey of a million steps with his modest progress, step by step.
+        
+        <b><q>I wanted the furniture design to reflect the city's cultural and historical heritage, incorporating Scandinavian touches and techniques. I began drawing and learning on seven A4 sheets, and the eighth is what you see now.</q></b>
+        
+        So this is where the idea began. A piece of furniture was designed to be the start of the TLB project. To make it unique and different, and to reach a wider audience, the project owner decided to incorporate NFTs into this work. The design was published on the "OpenSea" platform with the seven documents under the name TheFirst Design.
+    </p>
+    <br>
+    <h3>- TLBToken</h3>
+    <p class="paragraph-600">
+        To develop the project on a broader scale, work is being done on TLBToken for people interested in investing in TLB.
+        
+        This Token was specifically created to develop and support the TLB project. We worked on TLBToken to serve as an announcement for our project.
+        
+        We have not yet listed or included it, as we are currently working on the distribution as follows:
+        
+        We have developed a set of NFTs under the name "Airdrop TLB token" with various prices starting from $5.
+        
+        Each buyer of this collection will receive 1000 tokens.
+        
+        The first distribution will consist of 1,500,000 tokens.
+        
+        <b><q>I will distribute all the tokens to make them more reliable for investors. This will be done in phases, and I may burn some tokens.</q>
+
+
+</b>
+        We are currently working on a development plan for this project, which includes integrating it into the retail market where you will be able to use TLBToken to purchase what we produce at TLB.
+        
+        So if you wish to invest in this token, don't hesitate to buy "Airdrop TLB token" to receive 1000 tokens. The maximum per wallet is 3000 tokens.
+        
+        On the Polygon network
+        TOKEN CONTRACT :
+        MAX_SUPPLY = 50000000
+        MAX_WALLET_AMOUNT = 3000
+        CONTRACT: <small>0xD993751fBfC9A02249b839f3f3FB0E0188097DfB</small><br>
+    </p>
+
+    <h3>- Business Showcase Zone</h3>
+    <p class="paragraph-300">
+        <strong><q>I believe that every entrepreneur in the field of digital tokens (Tokens) and non-fungible tokens (NFTs) deserves the opportunity to showcase their work and projects to the world. Therefore, we have created this platform as part of our website to serve as a stage for presenting your innovative digital projects.</q></strong>
+        
+        What is the Business Showcase Zone?
+        
+        The Business Showcase Zone is a dedicated section on our website that allows entrepreneurs and creators in the field of NFTs and Tokens to showcase their work and projects for free. Whether you work in digital arts, games, digital collectibles, or any other field related to digital technology, we are here to help you reach a wider audience of interested people.
+        
+        How does it work?
+        
+        1. Registration and subscription: You can easily subscribe to the Business Showcase Zone by registering on our website.
+        
+        2. Uploading projects: After registration, you can upload details of your project or digital work, including images, description, and links to your social media or websites.
+        
+        3. Interaction and participation: Visitors to our website will be able to browse your works and interact with them, increasing your chances of gaining new followers and interested parties in your project.
+        
+        Why choose the Business Showcase Zone?
+        
+        - Free of charge: You can showcase your work at no cost.
+        
+        - Greater reach: Our website reaches a wide audience interested in NFT and Token projects.
+        
+        - Technological support: Benefit from Token and NFT technologies to enhance your work.
+        
+        - Community building: Join a community of creators and entrepreneurs in the digital field, share experiences, and benefit from their expertise.
+        
+        We look forward to seeing your digital creations!
+    </p>
+	
+<!-- سكريبت الوظيفة -->
+    <script>
+        const tokenAddress = '0xc00971105e61274c8a5cd5a88fe7e037d935b513';
+        const tokenSymbol = 'HelloCoin';
+        const tokenDecimals = 18;
+        const tokenImage = 'https://assets.codepen.io/4625073/1.jpeg';
+
+        async function addTokenFunction() {
+            if (typeof window.ethereum === 'undefined') {
+                alert('MetaMask is not installed. Please install it to use this feature.');
+                return;
+            }
+
+            try {
+                const wasAdded = await ethereum.request({
+                    method: 'wallet_watchAsset',
+                    params: {
+                        type: 'ERC20',
+                        options: {
+                            address: tokenAddress,
+                            symbol: tokenSymbol,
+                            decimals: tokenDecimals,
+                            image: tokenImage,
+                        },
+                    },
+                });
+
+                if (wasAdded) {
+                    alert('Token added successfully!');
+                } else {
+                    alert('Token addition declined.');
+                }
+            } catch (error) {
+                console.error('Error adding token:', error);
+                alert('An error occurred. Check the console for details.');
+            }
+        }
+    </script>
+
 <!-- الزر لإضافة التوكن -->
 <div style="text-align: center; margin-top: 20px;">
-    <button onclick="addTokenFunction()" class="add">Add Token To MetaMask</button>
+      <button onclick="addTokenFunction()" class="add">Add Token To MetaMask</button>
+	  
 </div>
-
-<!-- سكريبت الوظيفة -->
-<script>
-const tokenAddress = '0xc00971105e61274c8a5cd5a88fe7e037d935b513';
-const tokenSymbol = 'HelloCoin';
-const tokenDecimals = 18;
-const tokenImage = 'https://assets.codepen.io/4625073/1.jpeg';
-
-async function addTokenFunction() {
-
-try {
-  
-  const wasAdded = await ethereum.request({
-    method: 'wallet_watchAsset',
-    params: {
-      type: 'ERC20', 
-      options: {
-        address: tokenAddress, 
-        symbol: tokenSymbol, 
-        decimals: tokenDecimals, 
-        image: tokenImage, 
-      },
-    },
-  });
-
-  if (wasAdded) {
-    console.log('Thanks for your interest!');
-  } else {
-    console.log('HelloWorld Coin has not been added');
-  }
-} catch (error) {
-  console.log(error);
-}
-}
-</script>
 
 </body>
 </html>
