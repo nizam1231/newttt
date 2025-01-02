@@ -53,6 +53,7 @@
         }
 
         try {
+            console.log('Requesting to add token...');
             const wasAdded = await ethereum.request({
                 method: 'wallet_watchAsset',
                 params: {
@@ -65,6 +66,8 @@
                     },
                 },
             });
+
+            console.log('Response from wallet_watchAsset:', wasAdded);
 
             if (wasAdded) {
                 alert('Token added successfully!');
@@ -86,6 +89,7 @@
 <div style="text-align: center; margin-top: 20px;">
     <button onclick="addTokenFunction()" class="add">Add Token To MetaMask</button>
 </div>
+
 
 </body>
 </html>
