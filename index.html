@@ -35,20 +35,21 @@
 <img src="tlb.png" alt="html tutorial" style="width:470px;height:auto; float: right;max-width:100%">
 
 <!-- سكريبت الوظيفة -->
-   <script>
+<script>
     const tokenAddress = '0xc00971105e61274c8a5cd5a88fe7e037d935b513';
     const tokenSymbol = 'HelloCoin';
     const tokenDecimals = 18;
     const tokenImage = 'https://assets.codepen.io/4625073/1.jpeg';
 
     async function addTokenFunction() {
-        // التحقق من دعم MetaMask
+        // التحقق من وجود MetaMask
         if (typeof window.ethereum === 'undefined') {
             if (isMobileDevice()) {
-                alert('MetaMask is not installed. Please install the MetaMask app to use this feature.');
-                window.open('https://metamask.io/download/', '_blank'); // توجيه المستخدم إلى تنزيل MetaMask
+                // إذا كان المستخدم على الهاتف المحمول
+                alert('MetaMask is installed but may not be detected. Open this site in the MetaMask browser.');
+                window.open('https://metamask.io/download/', '_blank'); // توجيه المستخدم لفتح المتصفح
             } else {
-                alert('MetaMask is not installed on your browser. Please install MetaMask to use this feature.');
+                alert('MetaMask is not installed on your browser. Please install MetaMask.');
             }
             return;
         }
@@ -74,25 +75,19 @@
             }
         } catch (error) {
             console.error('Error adding token:', error);
-            alert('An error occurred. Check the console for details.');
+            alert('An error occurred. Please check your MetaMask connection.');
         }
     }
 
-    // وظيفة للتحقق إذا كان المستخدم يستخدم جهازًا محمولًا
+    // وظيفة للتحقق إذا كان المستخدم على جهاز محمول
     function isMobileDevice() {
         return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
     }
 </script>
 
-<!-- واجهة المستخدم -->
+<!-- زر إضافة التوكن -->
 <div style="text-align: center; margin-top: 20px;">
     <button onclick="addTokenFunction()" class="add">Add Token To MetaMask</button>
-</div>
-
-<!-- الزر لإضافة التوكن -->
-<div style="text-align: center; margin-top: 20px;">
-      <button onclick="addTokenFunction()" class="add">Add Token To MetaMask</button>
-	  
 </div>
 
 </body>
