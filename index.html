@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TLB</title>
+    <title>Coco</title>
     <link rel="stylesheet" href="style_index.css">
 </head>
 
@@ -21,73 +21,87 @@
     </nav>
 </header>
 
-<h3>TLB PROJECT</h3>
+<h3>Token Coco</h3>
 <hr>
 
 <h1>
-    TLB
+    Coco
     <small>Project</small>
 </h1>
 
-<h4>One integrated Project<br>Furniture NFTs Tokens</h4>
+<h4>Why did I choose the name "Token Coco"?</h4>
 <br>
-<h3>- Here, we will explain to you the project idea,<br> how it started, and what TLB is.</h3>
+<h3>- Here, we will explain to you the project idea,<br> how it started, and what Coco is.</h3>
 <img src="tlb.png" alt="html tutorial" style="width:470px;height:auto; float: right;max-width:100%">
-
+ <p class="paragraph-400">
 	
-<!-- سكريبت الوظيفة -->
- <script>
-    const tokenAddress = '0xc00971105e61274c8a5cd5a88fe7e037d935b513';
-    const tokenSymbol = 'HelloCoin';
-    const tokenDecimals = 18;
-    const tokenImage = 'https://assets.codepen.io/4625073/1.jpeg';
+       
+       The idea for the token's name was inspired by a beloved cat I own, named "Coco." She represents authenticity and innovation. With Token Coco, I aim to create something unique and exceptional, designed to surpass other cryptocurrencies in the market.
 
-    async function addTokenFunction() {
-        if (typeof window.ethereum === 'undefined') {
-            if (isMobileDevice()) {
-                alert('To add the token, please open this site in the MetaMask mobile browser.');
-                window.open('https://metamask.app.link/dapp/yourwebsite.com', '_blank');
-            } else {
-                alert('MetaMask is not installed on your browser. Please install it to use this feature.');
-            }
-            return;
-        }
+    </p>
+    
+    
+    <br>
+    <h3>- What makes Token Coco special?</h3>
+    <p class="paragraph-600">
+        Token Coco is not just a digital token. We are working to make it represent real assets tied to powerful future projects. The goal is to ensure Token Coco holds genuine value, going beyond traditional cryptocurrencies and becoming an integral part of:
+        
+		1. Social media projects: Innovative platforms that revolutionize the way we interact and connect.
+		
+		2. Commercial ventures: Expanding business opportunities and creating an interconnected ecosystem that drives growth and adds value.
+        
+		<b><q>I will distribute all the tokens to make them more reliable for investors. This will be done in phases, and I may burn some tokens.</q>
 
-        try {
-            const wasAdded = await ethereum.request({
-                method: 'wallet_watchAsset',
-                params: {
-                    type: 'ERC20',
-                    options: {
-                        address: tokenAddress,
-                        symbol: tokenSymbol,
-                        decimals: tokenDecimals,
-                        image: tokenImage,
-                    },
-                },
-            });
-
-            if (wasAdded) {
-                alert('Token added successfully!');
-            } else {
-                alert('Token addition declined.');
-            }
-        } catch (error) {
-            console.error('Error adding token:', error);
-            alert('An error occurred. Check the console for details.');
-        }
-    }
-
-    function isMobileDevice() {
-        return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-    }
-</script>
-
+        </b>
+        Our Vision:
+        Token Coco is more than just an investment. It’s a gateway to building sustainable and profitable projects for the future. Join us on this unique journey as we redefine the concept of digital currencies.
+        
+        Be part of this transformation and help Coco become a symbol of innovation and progress!
+        
+        On the Polygon network
+        TOKEN CONTRACT :
+        MAX_SUPPLY = 50000000
+        MAX_WALLET_AMOUNT = 3000
+        CONTRACT: <small>0xD993751fBfC9A02249b839f3f3FB0E0188097DfB</small><br>
+    </p>
+	
 <!-- زر إضافة التوكن -->
 <div style="text-align: center; margin-top: 20px;">
     <button onclick="addTokenFunction()" class="add">Add Token To MetaMask</button>
 </div>
 
+    <h3>- Business Showcase Zone</h3>
+    <p class="paragraph-300">
+        <strong><q>I believe that every entrepreneur in the field of digital tokens (Tokens) and non-fungible tokens (NFTs) deserves the opportunity to showcase their work and projects to the world. Therefore, we have created this platform as part of our website to serve as a stage for presenting your innovative digital projects.</q></strong>
+        
+        What is the Business Showcase Zone?
+        
+        The Business Showcase Zone is a dedicated section on our website that allows entrepreneurs and creators in the field of NFTs and Tokens to showcase their work and projects for free. Whether you work in digital arts, games, digital collectibles, or any other field related to digital technology, we are here to help you reach a wider audience of interested people.
+        
+        How does it work?
+        
+        1. Registration and subscription: You can easily subscribe to the Business Showcase Zone by registering on our website.
+        
+        2. Uploading projects: After registration, you can upload details of your project or digital work, including images, description, and links to your social media or websites.
+        
+        3. Interaction and participation: Visitors to our website will be able to browse your works and interact with them, increasing your chances of gaining new followers and interested parties in your project.
+        
+        Why choose the Business Showcase Zone?
+        
+        - Free of charge: You can showcase your work at no cost.
+        
+        - Greater reach: Our website reaches a wide audience interested in NFT and Token projects.
+        
+        - Technological support: Benefit from Token and NFT technologies to enhance your work.
+        
+        - Community building: Join a community of creators and entrepreneurs in the digital field, share experiences, and benefit from their expertise.
+        
+        We look forward to seeing your digital creations!
+    </p>
+
+
+<!-- ربط ملف JavaScript -->
+<script src="addToken.js"></script>
 
 </body>
 </html>
