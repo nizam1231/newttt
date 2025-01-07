@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            direction: rtl;
+            text-align: right;
+        }
+        .form-container {
+            max-width: 500px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .form-container h2 {
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        .form-group button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .form-group button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>إضافة مشروع جديد</h2>
+        <form action="submit_project.php" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="type">نوع المشروع:</label>
+                <select id="type" name="type" required>
+                    <option value="NFT">NFT</option>
+                    <option value="Token">Token</option>
+                    <option value="Other">أخرى</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="name">اسم المشروع:</label>
+                <input type="text" id="name" name="name" placeholder="أدخل اسم المشروع" required>
+            </div>
+            <div class="form-group">
+                <label for="logo">شعار المشروع:</label>
+                <input type="file" id="logo" name="logo" accept="image/*" required>
+            </div>
+            <div class="form-group">
+                <label for="description">وصف المشروع:</label>
+                <textarea id="description" name="description" rows="4" placeholder="أدخل وصف المشروع" required></textarea>
+            </div>
+            <div class="form-group">
+                <button type="submit">إضافة المشروع</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
